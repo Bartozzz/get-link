@@ -1,6 +1,6 @@
 # get-link
 
-> Returns an absolute URL from a string or relative URL. Works perfectly from static websites.
+> Returns an absolute URL from a string or relative URL. Works perfectly for static websites.
 
 ## Usage
 
