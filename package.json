@@ -1,0 +1,28 @@
+{
+    "name"          : "get-link",
+    "version"       : "0.0.1",
+    "keywords"      : [ "url", "uri", "link", "relative" ],
+    "description"   : "Returns an absolute URL from a string or relative URL",
+
+    "author"    : "Łaniewski Bartosz <laniewski.bartozzz@gmail.com> (http://laniewski.me/)",
+    "license"   : "MIT",
+
+    "main"  : "src/index.js",
+
+    "repository" : {
+        "type" : "git",
+        "url"  : "https://github.com/Bartozzz/get-link.git"
+    },
+
+    "bugs" : {
+        "url" : "https://github.com/Bartozzz/get-link/issues"
+    },
+
+    "devDependencies" : {
+        "mocha" : "^2.4.5"
+    },
+
+    "scripts" : {
+        "test" : "mocha"
+    }
+}
