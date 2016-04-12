@@ -1,6 +1,6 @@
 {
     "name"          : "get-link",
-    "version"       : "0.0.11",
+    "version"       : "0.0.2",
     "keywords"      : [ "url", "uri", "link", "relative" ],
     "description"   : "Returns an absolute URL from a string or relative URL",
 
