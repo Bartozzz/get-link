@@ -2,7 +2,17 @@
 
 > Returns an absolute URL from a string or relative URL. Works perfectly for static websites.
 
+## Installation
+
+```
+$ npm install get-link
+```
+
+To port it to Browser or any other environment (not node), use a JS bundler ([Browserify](http://browserify.org/), [Webpack](http://webpack.github.io/), etc.).
+
 ## Usage
+
+`getLink( base, link );`
 
 ```javascript
 import getLink from "get-link";
@@ -28,3 +38,7 @@ getLink( "http://example.com", "#dynamic-website" );
 getLink( "http://example.com", "javascript:void(0)" );
 // => false
 ```
+
+## Tests
+
+`$ npm test`
