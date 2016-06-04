@@ -1,4 +1,4 @@
-var getLink = require( "./../src" );
+var getLink = require( "../dist" );
 var assert  = require( "assert" );
 
 var TEST_URL_0 = "http://example.com";
