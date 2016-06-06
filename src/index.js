@@ -23,7 +23,6 @@ let parseLink = function ( link ) {
     }
 };
 
-
 /**
  * Transforms a relative path into an absolute url.
  *

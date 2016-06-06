@@ -1,13 +1,13 @@
 {
     "name"          : "get-link",
-    "version"       : "0.0.21",
+    "version"       : "0.0.22",
     "keywords"      : [ "url", "uri", "link", "relative" ],
     "description"   : "Returns an absolute URL from a string or relative URL",
 
     "author"    : "Łaniewski Bartosz <laniewski.bartozzz@gmail.com> (http://laniewski.me/)",
     "license"   : "MIT",
 
-    "main"  : "dest/index.js",
+    "main"  : "dist/index.js",
 
     "repository" : {
         "type" : "git",
