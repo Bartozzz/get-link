@@ -13,6 +13,9 @@ var TEST_RES_2 = "http://www.example.com/test.html";
 var TEST_URL_3 = "http://www.example.com/style/base/";
 var TEST_RES_3 = "http://www.example.com/style/style.css";
 
+var TEST_URL_4 = "example.com";
+var TEST_RES_4 = "example.com";
+
 describe( "Test", function () {
     it( `should return ${TEST_RES_0}`, function () {
         assert.equal( TEST_RES_0, getLink( TEST_URL_0, "http://www.example.com/" ) );
@@ -49,12 +52,20 @@ describe( "Test", function () {
         assert.equal( TEST_RES_3, getLink( TEST_URL_3, "/style/style.css" ) );
     } );
 
+    it( `should return base`, function () {
+        assert.equal( TEST_RES_4, getLink( TEST_URL_4, {} ) );
+        assert.equal( TEST_RES_4, getLink( TEST_URL_4, NaN ) );
+        assert.equal( TEST_RES_4, getLink( TEST_URL_4, 123 ) );
+        assert.equal( TEST_RES_4, getLink( TEST_URL_4, null ) );
+        assert.equal( TEST_RES_4, getLink( TEST_URL_4, undefined ) );
+        assert.equal( TEST_RES_4, getLink( TEST_URL_4, "#dynamic" ) );
+        assert.equal( TEST_RES_4, getLink( TEST_URL_4, "javascript:void(0)" ) );
+    } );
+
     it( "should return false", function () {
         assert.equal( false, getLink( TEST_URL_1, "https://www.example.gov/" ) );
         assert.equal( false, getLink( TEST_URL_1, "http://www.example.gov/" ) );
         assert.equal( false, getLink( TEST_URL_1, "https://example.gov/" ) );
         assert.equal( false, getLink( TEST_URL_1, "http://example.gov/" ) );
-        assert.equal( false, getLink( TEST_URL_1, "javascript:void(0)" ) );
-        assert.equal( false, getLink( TEST_URL_1, "#dynamic" ) );
     } );
 } );
