@@ -1,6 +1,6 @@
 # get-link
 
-> Returns an absolute URL from a string or relative URL. Works perfectly for static websites.
+Returns an absolute URL relative to `base` from another URL.
 
 ## Installation
 
@@ -8,14 +8,13 @@
 $ npm install get-link
 ```
 
-To port it to Browser or any other environment (not node), use a JS bundler ([Browserify](http://browserify.org/), [Webpack](http://webpack.github.io/), etc.).
-
 ## Usage
 
 `getLink( base, link );`
 
 ```javascript
 import getLink from "get-link";
+// or window.getLink if used outside Node.js environment
 
 getLink( "http://example.com", "/foo/bar" );
 // => http://example.com/foo/bar
