@@ -32,7 +32,7 @@
         "babel-plugin-transform-runtime": "^6.23.0"
     },
     "scripts": {
-        "test": "mocha --harmony",
+        "test": "npm run prepare && mocha --harmony",
         "clean": "rm -rf dist",
         "build": "webpack --colors --progress --display-error-details",
         "prepare": "npm run clean && npm run build"
