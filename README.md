@@ -1,10 +1,10 @@
 # get-link
 
-Returns an absolute URL relative to `base` from another URL.
+Returns an absolute URL relative to another URL. Not vulnerable to *Denial-of-Service* attacks.
 
 ## Installation
 
-```
+```bash
 $ npm install get-link
 ```
 
@@ -40,4 +40,6 @@ getLink( "http://example.com", "javascript:void(0)" );
 
 ## Tests
 
-`$ npm test`
+```bash
+$ npm test
+```
