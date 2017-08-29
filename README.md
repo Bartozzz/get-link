@@ -1,5 +1,7 @@
 # get-link
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Bartozzz/get-link.svg)](https://greenkeeper.io/)
+
 Returns an absolute URL relative to another URL. Not vulnerable to *Denial-of-Service* attacks.
 
 ## Installation
