@@ -1,8 +1,14 @@
-# get-link
+<div align="center">
+  <h1>get-link</h1>
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/Bartozzz/get-link.svg)](https://greenkeeper.io/)
+[![Build Status](https://img.shields.io/travis/Bartozzz/get-link.svg)](https://travis-ci.org/Bartozzz/get-link/)
+[![npm version](https://img.shields.io/npm/v/get-link.svg)](https://www.npmjs.com/package/get-link)
+[![npm downloads](https://img.shields.io/npm/dt/get-link.svg)](https://www.npmjs.com/package/get-link)
+  <br>
 
 Returns an absolute URL relative to another URL. Not vulnerable to *Denial-of-Service* attacks.
+</div>
 
 ## Installation
 
