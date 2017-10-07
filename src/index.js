@@ -1,20 +1,21 @@
+// @flow
+
 import url from "url";
 
 // eslint-disable-next-line
-const REGEX_URL = /^(?:https?:\/\/)?(?:www\.)?([-a-zA-Z0-9_.=]{2,255}\.+(?:[a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel|local|internal)\b)(\/[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)?/gi;
-const REGEX_DYNAMIC = /^(?:javascript\:\S{1,})|(?:#\S{1,})/gi;
-const REGEX_ABSOLUTE = /^https?:\/\//i;
+const REGEX_URL: RegExp = /^(?:https?:\/\/)?(?:www\.)?([-a-zA-Z0-9_.=]{2,255}\.+(?:[a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel|local|internal)\b)(\/[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)?/gi;
+const REGEX_DYNAMIC: RegExp = /^(?:javascript\:\S{1,})|(?:#\S{1,})/gi;
+const REGEX_ABSOLUTE: RegExp = /^https?:\/\//i;
 
 /**
- * Parses a link and returns its domain and path or undefined if the argument is
- * not a valid link.
+ * Parse a link and return its domain and path or an empty object if the
+ * argument is not a valid link.
  *
  * @param   {string}    link        Link to parse
- * @return  {object|undefined}      Domain/path or undefined if can't be parsed
- * @access  public
+ * @return  {object}                Domain/path or empty object
  */
-const parseLink = (link) => {
-    const match = new RegExp(REGEX_URL).exec(link);
+function parseLink(link: string): Object {
+    const match: Object = new RegExp(REGEX_URL).exec(link);
 
     if (match) {
         return {
@@ -22,19 +23,18 @@ const parseLink = (link) => {
             path: match[2],
         };
     }
-};
+
+    return {};
+}
 
 /**
- * Transforms a relative path into an absolute url.
+ * Transform a relative path into an absolute url.
  *
  * @param   {string}    base    Basic, absolute url
  * @param   {string}    link    Link to parse
  * @return  {string|false}      Absolute path
- *
- * @export  {function}
- * @access  public
  */
-export default function(base, link) {
+export default function(base: string, link: string): null|string|boolean {
     // Dynamic stuff - there's no link:
     if (typeof link !== "string" || link.match(REGEX_DYNAMIC)) {
         return base;
@@ -42,8 +42,8 @@ export default function(base, link) {
 
     // Link is absolute:
     if (link.match(REGEX_ABSOLUTE)) {
-        const parsedBase = parseLink(base);
-        const parsedLink = parseLink(link);
+        const parsedBase: Object = parseLink(base);
+        const parsedLink: Object = parseLink(link);
 
         // Both `base` and `link` are on different domains:
         if (parsedBase.domain !== parsedLink.domain) {
@@ -55,12 +55,12 @@ export default function(base, link) {
             return url.resolve(base, parsedLink.path);
         }
 
-        // Two same domains without path:
+        // Same domains without path:
         return url.parse(base).href;
     }
 
-    const parsedBase = url.parse(base);
-    const parsedLink = link.split("/");
+    const parsedBase: Object = url.parse(base);
+    const parsedLink:Array<string> = link.split("/");
     let parts = [];
 
     if (link.startsWith("/")) {
