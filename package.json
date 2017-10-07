@@ -38,11 +38,11 @@
         "eslint-plugin-import": "^2.7.0"
     },
     "scripts": {
-        "flow": "flow",
-        "test": "npm run prepare && mocha --harmony",
-        "clean": "rm -rf dist",
-        "build": "webpack --colors --progress --display-error-details",
+        "prepare": "npm run clean && npm run eslint && npm run flow && npm run build",
         "eslint": "node_modules/.bin/eslint --fix src test",
-        "prepare": "npm run clean && npm run build"
+        "build": "node_modules/.bin/webpack --display-error-details",
+        "clean": "rm -rf dist",
+        "test": "npm run prepare && mocha --harmony",
+        "flow": "flow"
     }
 }
