@@ -1,6 +1,6 @@
 {
     "name": "get-link",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": [
         "url",
         "link",
@@ -10,7 +10,7 @@
         "relative-path",
         "absolute-url"
     ],
-    "description": "Returns a new, absolute URL by parsing the link relative to the base URL",
+    "description": "Returns an absolute URL relative to another URL",
     "author": "Łaniewski Bartosz <laniewski.bartozzz@gmail.com> (http://laniewski.me/)",
     "license": "MIT",
     "main": "dist/index.js",
