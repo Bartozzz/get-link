@@ -1,6 +1,9 @@
 // @flow
 
-import url from "url";
+import {
+    parse as parseURL,
+    resolve as resolveURL,
+} from "url";
 
 // eslint-disable-next-line
 const REGEX_URL: RegExp = /^(?:https?:\/\/)?(?:www\.)?([-a-zA-Z0-9_.=]{2,255}\.+(?:[a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel|local|internal)\b)(\/[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)?/gi;
@@ -8,34 +11,68 @@ const REGEX_DYNAMIC: RegExp = /^(?:[a-z]+\:[^\/]\S{1,})|(?:#\S{1,})/gi;
 const REGEX_ABSOLUTE: RegExp = /^https?:\/\//i;
 
 /**
- * Parse a link and return its domain and path or an empty object if the
- * argument is not a valid link.
+ * Parse a link and return its "normalized" (without the `https://www.` prefix)
+ * domain and path.
  *
- * @param   {string}    link        Link to parse
- * @return  {object}                Domain/path or empty object
+ *
+ * @param   {string}    link    Link to parse
+ * @return  {object}            Normalized domain and path
  */
 function parseLink(link: string): Object {
     const match: Object = new RegExp(REGEX_URL).exec(link);
 
-    if (match) {
-        return {
-            domain: match[1],
-            path: match[2],
-        };
+    return {
+        domain: match[1],
+        path: match[2],
+    };
+}
+
+/**
+ * Regenerates an absolute URL from `base` and relative `link`.
+ *
+ * @param   {string}    base    Absolute base url
+ * @param   {string}    link    Relative link
+ * @return  {string|null}
+ */
+function regenerateLink(base: string, link: string): string|null {
+    const parsedBase: Object = parseURL(base);
+    const parsedLink:Array<string> = link.split("/");
+    let parts = [];
+
+    if (!link.startsWith("/")) {
+        parts = parsedBase.pathname.split("/");
+        parts.pop();
     }
 
-    return {};
+    for (const part of parsedLink) {
+        // Current directory:
+        if (part === ".") {
+            continue;
+        }
+
+        // Parent directory:
+        if (part === "..") {
+            // Accessing non-existing parent directories:
+            if (!parts.pop() || parts.length === 0) {
+                return null;
+            }
+        } else {
+            parts.push(part);
+        }
+    }
+
+    return `${parsedBase.protocol}//${parsedBase.hostname}${parts.join("/")}`;
 }
 
 /**
  * Transform a relative path into an absolute url.
  *
- * @param   {string}    base    Basic, absolute url
+ * @param   {string}    base    Absolute base url
  * @param   {string}    link    Link to parse
  * @return  {string|false}      Absolute path
  */
 export default function(base: string, link: string): null|string|boolean {
-    // Dynamic stuff - there's no link:
+    // Dynamic stuff:
     if (typeof link !== "string" || link.match(REGEX_DYNAMIC)) {
         return base;
     }
@@ -52,40 +89,13 @@ export default function(base: string, link: string): null|string|boolean {
 
         // Absolute path from same domain:
         if (parsedLink.path) {
-            return url.resolve(base, parsedLink.path);
+            return resolveURL(base, parsedLink.path);
         }
 
         // Same domains without path:
-        return url.parse(base).href;
+        return parseURL(base).href;
     }
 
-    const parsedBase: Object = url.parse(base);
-    const parsedLink:Array<string> = link.split("/");
-    let parts = [];
-
-    if (link.startsWith("/")) {
-        parts = [];
-    } else {
-        parts = parsedBase.pathname.split("/");
-        parts.pop();
-    }
-
-    for (const part of parsedLink) {
-        // Current directory:
-        if (part === ".") {
-            continue;
-        }
-
-        // Parent directory:
-        if (part === "..") {
-            // Wrong url - accessing non-existing parent directories:
-            if (! parts.pop() || parts.length === 0) {
-                return null;
-            }
-        } else {
-            parts.push(part);
-        }
-    }
-
-    return `${parsedBase.protocol}//${parsedBase.hostname}${parts.join("/")}`;
+    // Relative stuff:
+    return regenerateLink(base, link);
 }
