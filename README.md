@@ -23,7 +23,6 @@ $ npm install get-link
 
 ```javascript
 import getLink from "get-link";
-// or window.getLink if used outside Node.js environment
 
 getLink("http://example.com", "/foo/bar");
 // => http://example.com/foo/bar
