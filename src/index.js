@@ -6,7 +6,7 @@ import {
 } from "url";
 
 // eslint-disable-next-line
-const REGEX_URL: RegExp = /^(?:https?:\/\/)?(?:www\.)?([-a-zA-Z0-9_.=]{2,255}\.+(?:[a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel|local|internal)\b)(\/[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)?/gi;
+const REGEX_URL: RegExp = /^(?:https?:\/\/)?(?:www\.)?([-a-zA-Z0-9_.=]{2,255}\.+(?:[a-z]{2,6})\b)(\/[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)?/gi;
 const REGEX_DYNAMIC: RegExp = /^(?:[a-z]+\:[^\/]\S{1,})|(?:#\S{1,})/gi;
 const REGEX_ABSOLUTE: RegExp = /^https?:\/\//i;
 
