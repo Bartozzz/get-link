@@ -63,5 +63,6 @@ describe("Test", function() {
         assert.equal(false, getLink(TEST_URL_1, "http://www.example.gov/"));
         assert.equal(false, getLink(TEST_URL_1, "https://example.gov/"));
         assert.equal(false, getLink(TEST_URL_1, "http://example.gov/"));
+        assert.equal(false, getLink("https://google.com/", "https://abc.xyz/investor/"));
     });
 });
