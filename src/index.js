@@ -6,7 +6,7 @@ import {
 } from "url";
 
 // eslint-disable-next-line
-const REGEX_URL: RegExp = /^(?:https?:\/\/)?(?:www\.)?([-a-zA-Z0-9_.=]{2,255}\.+(?:[a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel|local|internal)\b)(\/[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)?/gi;
+const REGEX_URL: RegExp = /^(?:https?:\/\/)?(?:www\.)?([-a-zA-Z0-9_.=]{2,255}\.+(?:[a-z]{2,6})\b)(\/[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)?/gi;
 const REGEX_DYNAMIC: RegExp = /^(?:[a-z]+\:[^\/]\S{1,})|(?:#\S{1,})/gi;
 const REGEX_ABSOLUTE: RegExp = /^https?:\/\//i;
 
@@ -14,12 +14,17 @@ const REGEX_ABSOLUTE: RegExp = /^https?:\/\//i;
  * Parse a link and return its "normalized" (without the `https://www.` prefix)
  * domain and path.
  *
- *
  * @param   {string}    link    Link to parse
  * @return  {object}            Normalized domain and path
+ * @throws  {Error}             When domain could not be resolved
  */
 function parseLink(link: string): Object {
     const match: Object = new RegExp(REGEX_URL).exec(link);
+
+    // 0 = link; 1 = domain; 2 = path
+    if (!("1" in match)) {
+        throw new Error(`Invalid domain ${link}`);
+    }
 
     return {
         domain: match[1],
@@ -79,21 +84,25 @@ export default function(base: string, link: string): null|string|boolean {
 
     // Link is absolute:
     if (link.match(REGEX_ABSOLUTE)) {
-        const parsedBase: Object = parseLink(base);
-        const parsedLink: Object = parseLink(link);
+        try {
+            const parsedBase: Object = parseLink(base);
+            const parsedLink: Object = parseLink(link);
 
-        // Both `base` and `link` are on different domains:
-        if (parsedBase.domain !== parsedLink.domain) {
+            // Both `base` and `link` are on different domains:
+            if (parsedBase.domain !== parsedLink.domain) {
+                return false;
+            }
+
+            // Absolute path from same domain:
+            if (parsedLink.path) {
+                return resolveURL(base, parsedLink.path);
+            }
+
+            // Same domains without path:
+            return parseURL(base).href;
+        } catch (err) {
             return false;
         }
-
-        // Absolute path from same domain:
-        if (parsedLink.path) {
-            return resolveURL(base, parsedLink.path);
-        }
-
-        // Same domains without path:
-        return parseURL(base).href;
     }
 
     // Relative stuff:
