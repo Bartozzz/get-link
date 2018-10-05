@@ -97,4 +97,11 @@ describe("Test", function() {
       getLink("https://google.com/", "https://abc.xyz/investor/")
     );
   });
+
+  it("should keep port", function() {
+    assert.equal(
+      getLink("http://example.com:1234/", "hello.html"),
+      "http://example.com:1234/hello.html"
+    );
+  });
 });
