@@ -40,6 +40,7 @@ function regenerateLink(base: string, link: string): string | null {
   const parsedBase: Object = parseURL(base);
   const parsedLink: Array<string> = link.split("/");
   let parts = [];
+  let port = "";
 
   if (!link.startsWith("/")) {
     parts = parsedBase.pathname.split("/");
@@ -63,7 +64,12 @@ function regenerateLink(base: string, link: string): string | null {
     }
   }
 
-  return `${parsedBase.protocol}//${parsedBase.hostname}${parts.join("/")}`;
+  if (parsedBase.port) {
+    port = ":" + parsedBase.port;
+  }
+
+  // eslint-disable-next-line max-len
+  return `${parsedBase.protocol}//${parsedBase.hostname}${port}${parts.join("/")}`;
 }
 
 /**
