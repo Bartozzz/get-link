@@ -3,12 +3,7 @@ dist: trusty
 language: node_js
 
 node_js:
-  - node
-
-branches:
-  only:
-    - master
-    - /^greenkeeper/.*$/
+  - lts/*
 
 cache:
   directories:
@@ -21,4 +16,4 @@ install:
   - npm install
 
 script:
-  - npm run test
+  - npm test

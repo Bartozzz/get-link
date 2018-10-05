@@ -1,49 +1,49 @@
 {
-    "name": "get-link",
-    "version": "1.0.3",
-    "keywords": [
-        "url",
-        "link",
-        "path",
-        "utility",
-        "helper",
-        "relative-path",
-        "absolute-url"
-    ],
-    "description": "Returns an absolute URL relative to another URL",
-    "author": "Łaniewski Bartosz <laniewski.bartozzz@gmail.com> (http://laniewski.me/)",
-    "license": "MIT",
-    "main": "dist/index.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Bartozzz/get-link.git"
-    },
-    "bugs": {
-        "url": "https://github.com/Bartozzz/get-link/issues"
-    },
-    "devDependencies": {
-        "babel-cli": "^6.26.0",
-        "babel-eslint": "^8.2.2",
-        "babel-loader": "^7.1.3",
-        "babel-plugin-add-module-exports": "^0.2.1",
-        "babel-polyfill": "^6.26.0",
-        "babel-preset-es2015": "^6.24.1",
-        "babel-preset-flow": "^6.23.0",
-        "eslint": "^4.18.2",
-        "eslint-config-google": "^0.9.1",
-        "eslint-plugin-flowtype": "^2.46.1",
-        "eslint-plugin-import": "^2.9.0",
-        "flow-bin": "^0.69.0",
-        "mocha": "^5.0.1",
-        "webpack": "^4.0.1",
-        "webpack-cli": "^2.0.10"
-    },
-    "scripts": {
-        "prepare": "npm run clean && npm run lint && npm run flow && npm run build",
-        "build": "node_modules/.bin/webpack --mode=production",
-        "clean": "rm -rf dist",
-        "lint": "node_modules/.bin/eslint --fix src test",
-        "test": "npm run prepare && mocha --harmony",
-        "flow": "flow"
-    }
+  "name": "get-link",
+  "version": "1.0.4",
+  "keywords": [
+    "url",
+    "link",
+    "path",
+    "utility",
+    "helper",
+    "relative-path",
+    "absolute-url"
+  ],
+  "description": "Returns a new, absolute URL by parsing the link relative to the base URL. Supports dynamic links. Not vulnerable to Denial-of-Service attacks.",
+  "author": "Łaniewski Bartosz <bartosz@laniewski.me> (https://laniewski.me/)",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bartozzz/get-link.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Bartozzz/get-link/issues"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/register": "7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "eslint": "^5.6.1",
+    "eslint-config-google": "^0.10.0",
+    "eslint-plugin-flowtype": "^2.50.3",
+    "flow-bin": "^0.82.0",
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.2"
+  },
+  "scripts": {
+    "prepare": "npm run clean && npm run lint && npm run flow && npm run build",
+    "build": "npx babel src -d dist",
+    "watch": "npx babel src -d dist -w",
+    "clean": "npx rimraf dist",
+    "lint": "npx eslint --fix src",
+    "test": "npm run prepare && npx mocha --require @babel/register",
+    "flow": "npx flow"
+  }
 }

@@ -1,9 +1,7 @@
 {
-    presets: [
-        "flow",
-        "es2015"
-    ],
-    plugins: [
-        "add-module-exports"
-    ]
+  "presets": [
+    ["@babel/preset-env", { "targets": { "node": "8" } }],
+    ["@babel/preset-flow"]
+  ],
+  "plugins": ["add-module-exports"]
 }
