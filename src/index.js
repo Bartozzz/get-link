@@ -16,10 +16,10 @@ const REGEX_ABSOLUTE: RegExp = /^https?:\/\//i;
  * @throws  {Error}             When domain could not be resolved
  */
 function parseLink(link: string): Object {
-  const match: Object = new RegExp(REGEX_URL).exec(link);
+  const match = new RegExp(REGEX_URL).exec(link);
 
   // 0 = link; 1 = domain; 2 = path
-  if (!("1" in match)) {
+  if (!match || !match[1]) {
     throw new Error(`Invalid domain ${link}`);
   }
 
@@ -69,7 +69,9 @@ function regenerateLink(base: string, link: string): string | null {
   }
 
   // eslint-disable-next-line max-len
-  return `${parsedBase.protocol}//${parsedBase.hostname}${port}${parts.join("/")}`;
+  return `${parsedBase.protocol}//${parsedBase.hostname}${port}${parts.join(
+    "/"
+  )}`;
 }
 
 /**
