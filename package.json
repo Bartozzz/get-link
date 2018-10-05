@@ -1,6 +1,6 @@
 {
   "name": "get-link",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "keywords": [
     "url",
     "link",
@@ -10,8 +10,8 @@
     "relative-path",
     "absolute-url"
   ],
-  "description": "Returns an absolute URL relative to another URL",
-  "author": "Łaniewski Bartosz <laniewski.bartozzz@gmail.com> (http://laniewski.me/)",
+  "description": "Returns a new, absolute URL by parsing the link relative to the base URL. Supports dynamic links. Not vulnerable to Denial-of-Service attacks.",
+  "author": "Łaniewski Bartosz <bartosz@laniewski.me> (https://laniewski.me/)",
   "license": "MIT",
   "main": "dist/index.js",
   "repository": {
@@ -41,9 +41,9 @@
     "prepare": "npm run clean && npm run lint && npm run flow && npm run build",
     "build": "npx babel src -d dist",
     "watch": "npx babel src -d dist -w",
-    "clean": "rimraf dist",
+    "clean": "npx rimraf dist",
     "lint": "npx eslint --fix src",
-    "test": "npm run prepare && mocha --require @babel/register",
-    "flow": "flow"
+    "test": "npm run prepare && npx mocha --require @babel/register",
+    "flow": "npx flow"
   }
 }
