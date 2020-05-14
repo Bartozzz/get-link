@@ -45,12 +45,15 @@
     "rimraf": "^3.0.2"
   },
   "scripts": {
-    "prepare": "npm run clean && npm run lint && npm run flow && npm run build",
+    "pretest": "npm run prepare",
+    "test": "npm run test:flow && npm run test:lint && npm run test:unit",
+    "test:flow": "npx flow",
+    "test:unit": "npx mocha --require @babel/register",
+    "test:lint": "npx eslint src",
+    "clean": "npx rimraf dist",
+    "prebuild": "npm run clean",
     "build": "npx babel src -d dist",
     "watch": "npx babel src -d dist -w",
-    "clean": "npx rimraf dist",
-    "lint": "npx eslint --fix src",
-    "test": "npm run prepare && npx mocha --require @babel/register",
-    "flow": "npx flow"
+    "prepare": "npm run build"
   }
 }
