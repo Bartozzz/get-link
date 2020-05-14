@@ -1,10 +1,9 @@
 // @flow
-
-import {parse as parseURL, resolve as resolveURL} from "url";
+import { URL } from "url";
 
 // eslint-disable-next-line
 const REGEX_URL: RegExp = /^(?:https?:\/\/)?(?:www\.)?([-a-zA-Z0-9_.=]{2,255}\.+(?:[a-z]{2,6})\b)(\/[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)?/gi;
-const REGEX_DYNAMIC: RegExp = /^(?:[a-z]+\:[^\/]\S{1,})|(?:#\S{1,})/gi;
+const REGEX_DYNAMIC: RegExp = /^(?:[a-z]+:[^/]\S{1,})|(?:#\S{1,})/gi;
 const REGEX_ABSOLUTE: RegExp = /^https?:\/\//i;
 
 /**
@@ -37,7 +36,7 @@ function parseLink(link: string): Object {
  * @return  {string|null}
  */
 function regenerateLink(base: string, link: string): string | null {
-  const parsedBase: Object = parseURL(base);
+  const parsedBase = new URL(base);
   const parsedLink: Array<string> = link.split("/");
   let parts = [];
   let port = "";
@@ -81,7 +80,7 @@ function regenerateLink(base: string, link: string): string | null {
  * @param   {string}    link    Link to parse
  * @return  {string|false}      Absolute path
  */
-export default function(base: string, link: string): null | string | boolean {
+export default function (base: string, link: string): null | string | boolean {
   // Dynamic stuff:
   if (typeof link !== "string" || link.match(REGEX_DYNAMIC)) {
     return base;
@@ -100,11 +99,11 @@ export default function(base: string, link: string): null | string | boolean {
 
       // Absolute path from same domain:
       if (parsedLink.path) {
-        return resolveURL(base, parsedLink.path);
+        return new URL(parsedLink.path, base).toString();
       }
 
       // Same domains without path:
-      return parseURL(base).href;
+      return new URL(base).href;
     } catch (err) {
       return false;
     }
