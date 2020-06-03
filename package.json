@@ -39,7 +39,7 @@
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "flow-bin": "^0.125.1",
+    "flow-bin": "^0.126.1",
     "mocha": "^7.1.2",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2"
