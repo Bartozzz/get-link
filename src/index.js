@@ -1,7 +1,7 @@
 // @flow
 import { URL } from "url";
 
-export default function getLink(base: string, link: string) {
+export default function getLink(base: string, link: string): string {
   const parsedBase = new URL(base);
 
   try {
